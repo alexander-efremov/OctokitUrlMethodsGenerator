@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -63,7 +64,7 @@ namespace OctokitUrlMethodsGenerator
 
                     builder.AppendLine("/// <summary>");
                     var summary = PrepareSummary(element.GetValue("summary"));
-                    summary = summary.Replace("Returns the ", @"Returns the <see cref=""Uri""/>");
+                    
                     builder.AppendLine("/// " + summary);
                     builder.AppendLine("/// </summary>");
 
@@ -87,9 +88,8 @@ namespace OctokitUrlMethodsGenerator
                     }
                     try
                     {
-                        var trim = element["returns"].InnerText.Trim();
-                        trim = trim.Replace("The  ", @"The <see cref=""Uri""/> ");
-                        builder.AppendLine(string.Format("/// <returns>{0}</returns>", trim));
+                        var format = PrepareReturns(element, summary);
+                        builder.AppendLine(format);
                     }
                     catch (Exception)
                     {
@@ -160,6 +160,32 @@ namespace OctokitUrlMethodsGenerator
             File.WriteAllText(combine, builder.ToString());
         }
 
+
+        public static string FirstCharToUpper(string input)
+        {
+            if (String.IsNullOrEmpty(input))
+                throw new ArgumentException("ARGH!");
+            return input.First().ToString().ToUpper() + input.Substring(1);
+        }
+
+        private string PrepareReturns(XmlElement element, string summary)
+        {
+            var trim = element["returns"].InnerText.Trim();
+            trim = trim.Replace("The  ", @"The <see cref=""Uri""/> ");
+            if (trim == "The")
+            {
+                trim = trim.Replace("The", @"The <see cref=""Uri""/> that ");
+            }
+            if (string.IsNullOrWhiteSpace(trim))
+            {
+                var summaryPrapared = summary.Replace("Returns ", "");
+                summaryPrapared = FirstCharToUpper(summaryPrapared);
+                trim = summaryPrapared;
+            }
+            var format = string.Format("/// <returns>{0}</returns>", trim);
+            return format;
+        }
+
         private string PrepareSummary(string getValue)
         {
             var lines = getValue.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -168,7 +194,12 @@ namespace OctokitUrlMethodsGenerator
             {
                 r += line.Trim() + " ";
             }
+            r = r.Replace("Returns the ", @"Returns the <see cref=""Uri""/>");
+            r = r.Replace("Creates the relative  ", @"Returns the <see cref=""Uri""/> ");
+            r = r.Replace("returns the  for branches", @"Returns the <see cref=""Uri""/> that returns all of the branches for the specified repository.");
+            r = r.Replace("returns the  for teams use for update or deleting a team", @"Returns the <see cref=""Uri""/> that returns all of the collaborators for the specified repository.");
             r = r.Trim();
+
             return r;
         }
 

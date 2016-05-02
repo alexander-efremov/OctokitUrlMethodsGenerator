@@ -109,7 +109,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="id">The id of the release asset</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the assets specified by the asset id.</returns>
         public static Uri Asset(int repositoryId, int id)
         {
             return "repositories/{0}/releases/assets/{1}".FormatUri(repositoryId, id);
@@ -119,7 +119,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns all of the assignees to which issues may be assigned.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the assignees to which issues may be assigned.</returns>
         public static Uri Assignees(int repositoryId)
         {
             return "repositories/{0}/assignees".FormatUri(repositoryId);
@@ -129,7 +129,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for a specific blob.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for a specific blob.</returns>
         public static Uri Blob(int repositoryId)
         {
             return Blob(repositoryId, "");
@@ -140,7 +140,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The SHA of the blob</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for a specific blob.</returns>
         public static Uri Blob(int repositoryId, string reference)
         {
             string blob = "repositories/{0}/git/blobs";
@@ -156,7 +156,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="login">The login for the user</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns a 204 if the login belongs to an assignee of the repository. Otherwire returns a 404.</returns>
         public static Uri CheckAssignee(int repositoryId, string login)
         {
             return "repositories/{0}/assignees/{1}".FormatUri(repositoryId, login);
@@ -167,7 +167,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The reference (SHA, branch name, or tag name) to list commits for</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns a combined view of commit statuses for the specified reference.</returns>
         public static Uri CombinedCommitStatus(int repositoryId, string reference)
         {
             return "repositories/{0}/commits/{1}/status".FormatUri(repositoryId, reference);
@@ -178,7 +178,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The commit reference (SHA)</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified commit.</returns>
         public static Uri Commit(int repositoryId, string reference)
         {
             return "repositories/{0}/git/commits/{1}".FormatUri(repositoryId, reference);
@@ -189,7 +189,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The comment number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified comment.</returns>
         public static Uri CommitComment(int repositoryId, int number)
         {
             return "repositories/{0}/comments/{1}".FormatUri(repositoryId, number);
@@ -200,7 +200,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="sha">The sha of the commit</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the comments of a specified commit.</returns>
         public static Uri CommitComments(int repositoryId, string sha)
         {
             return "repositories/{0}/commits/{1}/comments".FormatUri(repositoryId, sha);
@@ -210,7 +210,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for the comments of a specified commit.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the comments of a specified commit.</returns>
         public static Uri CommitComments(int repositoryId)
         {
             return "repositories/{0}/comments".FormatUri(repositoryId);
@@ -221,7 +221,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The reference (SHA, branch name, or tag name) to list commits for</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that lists the commit statuses for the specified reference.</returns>
         public static Uri CommitStatuses(int repositoryId, string reference)
         {
             return "repositories/{0}/commits/{1}/statuses".FormatUri(repositoryId, reference);
@@ -231,7 +231,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for creating a commit object.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for creating a commit object.</returns>
         public static Uri CreateCommit(int repositoryId)
         {
             return "repositories/{0}/git/commits".FormatUri(repositoryId);
@@ -242,7 +242,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The reference (SHA, branch name, or tag name) to list commits for</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> to use when creating a commit status for the specified reference.</returns>
         public static Uri CreateCommitStatus(int repositoryId, string reference)
         {
             return "repositories/{0}/statuses/{1}".FormatUri(repositoryId, reference);
@@ -252,7 +252,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for creating a merge object.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for creating a merge object.</returns>
         public static Uri CreateMerge(int repositoryId)
         {
             return "repositories/{0}/merges".FormatUri(repositoryId);
@@ -262,7 +262,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for creating a tag object.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for creating a tag object.</returns>
         public static Uri CreateTag(int repositoryId)
         {
             return "repositories/{0}/git/tags".FormatUri(repositoryId);
@@ -272,7 +272,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for the Deployments API for the given repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the Deployments API for the given repository.</returns>
         public static Uri Deployments(int repositoryId)
         {
             return "repositories/{0}/deployments".FormatUri(repositoryId);
@@ -283,7 +283,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="deploymentId">Id of the deployment</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the Deployment Statuses API for the given deployment.</returns>
         public static Uri DeploymentStatuses(int repositoryId, int deploymentId)
         {
             return "repositories/{0}/deployments/{1}/statuses".FormatUri(repositoryId, deploymentId);
@@ -294,7 +294,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The issue number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified issue.</returns>
         public static Uri Issue(int repositoryId, int number)
         {
             return "repositories/{0}/issues/{1}".FormatUri(repositoryId, number);
@@ -305,7 +305,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="id">The comment id</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified comment.</returns>
         public static Uri IssueComment(int repositoryId, int id)
         {
             return "repositories/{0}/issues/comments/{1}".FormatUri(repositoryId, id);
@@ -315,7 +315,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for the comments for all issues in a specific repo.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the comments for all issues in a specific repo.</returns>
         public static Uri IssueComments(int repositoryId)
         {
             return "repositories/{0}/issues/comments".FormatUri(repositoryId);
@@ -326,7 +326,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The issue number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the comments of a specified issue.</returns>
         public static Uri IssueComments(int repositoryId, int number)
         {
             return "repositories/{0}/issues/{1}/comments".FormatUri(repositoryId, number);
@@ -338,7 +338,7 @@ namespace OctokitUrlMethodsGenerator
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The issue number</param>
         /// <param name="labelName">The name of the label</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the named label for the specified issue.</returns>
         public static Uri IssueLabel(int repositoryId, int number, string labelName)
         {
             return "repositories/{0}/issues/{1}/labels/{2}".FormatUri(repositoryId, number, labelName);
@@ -349,7 +349,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The issue number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the labels for the specified issue.</returns>
         public static Uri IssueLabels(int repositoryId, int number)
         {
             return "repositories/{0}/issues/{1}/labels".FormatUri(repositoryId, number);
@@ -360,7 +360,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The issue number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified issue to be locked/unlocked.</returns>
         public static Uri IssueLock(int repositoryId, int number)
         {
             return "repositories/{0}/issues/{1}/lock".FormatUri(repositoryId, number);
@@ -370,7 +370,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns all of the issues for the currently logged in user specific to the repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the issues for the currently logged in user specific to the repository.</returns>
         public static Uri Issues(int repositoryId)
         {
             return "repositories/{0}/issues".FormatUri(repositoryId);
@@ -381,7 +381,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="id">The event id</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the issue/pull request event and issue info for the specified event.</returns>
         public static Uri IssuesEvent(int repositoryId, int id)
         {
             return "repositories/{0}/issues/events/{1}".FormatUri(repositoryId, id);
@@ -392,7 +392,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The issue number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the issue/pull request event info for the specified issue.</returns>
         public static Uri IssuesEvents(int repositoryId, int number)
         {
             return "repositories/{0}/issues/{1}/events".FormatUri(repositoryId, number);
@@ -402,7 +402,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns the issue/pull request event and issue info for the specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the issue/pull request event and issue info for the specified repository.</returns>
         public static Uri IssuesEvents(int repositoryId)
         {
             return "repositories/{0}/issues/events".FormatUri(repositoryId);
@@ -413,7 +413,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="milestoneNumber">The milestone number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the specified label.</returns>
         public static Uri Label(int repositoryId, string milestoneNumber)
         {
             return "repositories/{0}/labels/{1}".FormatUri(repositoryId, milestoneNumber);
@@ -423,7 +423,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns all of the labels for the specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the labels for the specified repository.</returns>
         public static Uri Labels(int repositoryId)
         {
             return "repositories/{0}/labels".FormatUri(repositoryId);
@@ -433,7 +433,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns the latest release for the specified repository
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the latest release for the specified repository</returns>
         public static Uri LatestRelease(int repositoryId)
         {
             return "repositories/{0}/releases/latest".FormatUri(repositoryId);
@@ -455,7 +455,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The milestone number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the specified milestone.</returns>
         public static Uri Milestone(int repositoryId, int number)
         {
             return "repositories/{0}/milestones/{1}".FormatUri(repositoryId, number);
@@ -466,7 +466,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The milestone number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the labels for all issues in the specified milestone.</returns>
         public static Uri MilestoneLabels(int repositoryId, int number)
         {
             return "repositories/{0}/milestones/{1}/labels".FormatUri(repositoryId, number);
@@ -476,7 +476,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns all of the milestones for the specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the milestones for the specified repository.</returns>
         public static Uri Milestones(int repositoryId)
         {
             return "repositories/{0}/milestones".FormatUri(repositoryId);
@@ -496,7 +496,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns all of the notifications for the currently logged in user specific to the repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the notifications for the currently logged in user specific to the repository.</returns>
         public static Uri Notifications(int repositoryId)
         {
             return "repositories/{0}/notifications".FormatUri(repositoryId);
@@ -507,7 +507,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The pull request number</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns the specified pull request.</returns>
         public static Uri PullRequest(int repositoryId, int number)
         {
             return "repositories/{0}/pulls/{1}".FormatUri(repositoryId, number);
@@ -540,7 +540,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The comment number</param>
-        /// <returns>The</returns>
+        /// <returns>The <see cref="Uri"/> that </returns>
         public static Uri PullRequestReviewComment(int repositoryId, int number)
         {
             return "repositories/{0}/pulls/comments/{1}".FormatUri(repositoryId, number);
@@ -551,7 +551,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The pull request number</param>
-        /// <returns>The</returns>
+        /// <returns>The <see cref="Uri"/> that </returns>
         public static Uri PullRequestReviewComments(int repositoryId, int number)
         {
             return "repositories/{0}/pulls/{1}/comments".FormatUri(repositoryId, number);
@@ -561,7 +561,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for the pull request review comments on a specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns>The</returns>
+        /// <returns>The <see cref="Uri"/> that </returns>
         public static Uri PullRequestReviewCommentsRepository(int repositoryId)
         {
             return "repositories/{0}/pulls/comments".FormatUri(repositoryId);
@@ -571,7 +571,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that lists the pull requests for a repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that lists the pull requests for a repository.</returns>
         public static Uri PullRequests(int repositoryId)
         {
             return "repositories/{0}/pulls".FormatUri(repositoryId);
@@ -581,7 +581,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for the specified reference.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified reference.</returns>
         public static Uri Reference(int repositoryId)
         {
             return "repositories/{0}/git/refs".FormatUri(repositoryId);
@@ -592,7 +592,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="referenceName">The reference name</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified reference.</returns>
         public static Uri Reference(int repositoryId, string referenceName)
         {
             return "repositories/{0}/git/refs/{1}".FormatUri(repositoryId, referenceName);
@@ -603,7 +603,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="id">The id of the release</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all the assets for the specified release for the specified repository.</returns>
         public static Uri ReleaseAssets(int repositoryId, int id)
         {
             return "repositories/{0}/releases/{1}/assets".FormatUri(repositoryId, id);
@@ -613,7 +613,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that returns all of the releases for the specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the releases for the specified repository.</returns>
         public static Uri Releases(int repositoryId)
         {
             return "repositories/{0}/releases".FormatUri(repositoryId);
@@ -624,7 +624,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="id">The id of the release</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns a single release for the specified repository</returns>
         public static Uri Releases(int repositoryId, int id)
         {
             return "repositories/{0}/releases/{1}".FormatUri(repositoryId, id);
@@ -635,27 +635,27 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="branchName">The name of the branch</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for a repository branch.</returns>
         public static Uri RepoBranch(int repositoryId, string branchName)
         {
             return "repositories/{0}/branches/{1}".FormatUri(repositoryId, branchName);
         }
 
         /// <summary>
-        /// returns the  for branches
+        /// Returns the <see cref="Uri"/> that returns all of the branches for the specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the branches for the specified repository.</returns>
         public static Uri RepoBranches(int repositoryId)
         {
             return "repositories/{0}/branches".FormatUri(repositoryId);
         }
 
         /// <summary>
-        /// returns the  for teams use for update or deleting a team
+        /// Returns the <see cref="Uri"/> that returns all of the collaborators for the specified repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that returns all of the collaborators for the specified repository.</returns>
         public static Uri RepoCollaborators(int repositoryId)
         {
             return "repositories/{0}/collaborators".FormatUri(repositoryId);
@@ -667,9 +667,11 @@ namespace OctokitUrlMethodsGenerator
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="base">The base commit</param>
         /// <param name="head">The head commit</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for comparing two commits.</returns>
         public static Uri RepoCompare(int repositoryId, string @base, string head)
         {
+
+
             Ensure.ArgumentNotNullOrEmptyString(@base, "base");
             Ensure.ArgumentNotNullOrEmptyString(head, "head");
             var encodedBase = @base.UriEncode();
@@ -681,14 +683,14 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for a repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for a repository.</returns>
         public static Uri Repository(int repositoryId)
         {
             return "repositories/{0}".FormatUri(repositoryId);
         }
 
         /// <summary>
-        /// Creates the relative  for getting an archive of a given repository's contents, in a specific format
+        /// Returns the <see cref="Uri"/> for getting an archive of a given repository's contents, in a specific format
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="archiveFormat">The format of the archive. Can be either tarball or zipball</param>
@@ -704,7 +706,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The commit reference (SHA)</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for repository commits.</returns>
         public static Uri RepositoryCommit(int repositoryId, string reference)
         {
             return "repositories/{0}/commits/{1}".FormatUri(repositoryId, reference);
@@ -714,14 +716,14 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for repository commits.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for repository commits.</returns>
         public static Uri RepositoryCommits(int repositoryId)
         {
             return "repositories/{0}/commits".FormatUri(repositoryId);
         }
 
         /// <summary>
-        /// Creates the relative  for getting the contents of the specified repository's root
+        /// Returns the <see cref="Uri"/> for getting the contents of the specified repository's root
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <returns>The <see cref="Uri"/> for getting the contents of the specified repository's root</returns>
@@ -731,7 +733,7 @@ namespace OctokitUrlMethodsGenerator
         }
 
         /// <summary>
-        /// Creates the relative  for getting the contents of the specified repository and path
+        /// Returns the <see cref="Uri"/> for getting the contents of the specified repository and path
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="path">The path of the contents to get</param>
@@ -742,7 +744,7 @@ namespace OctokitUrlMethodsGenerator
         }
 
         /// <summary>
-        /// Creates the relative  for getting the contents of the specified repository and path
+        /// Returns the <see cref="Uri"/> for getting the contents of the specified repository and path
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="path">The path of the contents to get</param>
@@ -757,7 +759,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for repository contributors.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for repository contributors.</returns>
         public static Uri RepositoryContributors(int repositoryId)
         {
             return "repositories/{0}/contributors".FormatUri(repositoryId);
@@ -768,7 +770,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="number">The id of the deploy key of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for a deploy key for a repository</returns>
         public static Uri RepositoryDeployKey(int repositoryId, int number)
         {
             return "repositories/{0}/keys/{1}".FormatUri(repositoryId, number);
@@ -778,7 +780,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for deploy keys for a repository.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for deploy keys for a repository.</returns>
         public static Uri RepositoryDeployKeys(int repositoryId)
         {
             return "repositories/{0}/keys".FormatUri(repositoryId);
@@ -788,7 +790,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that lists the repository forks for the specified reference.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that lists the repository forks for the specified reference.</returns>
         public static Uri RepositoryForks(int repositoryId)
         {
             return "repositories/{0}/forks".FormatUri(repositoryId);
@@ -799,7 +801,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="hookId">The identifier of the repository hook</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that gets the repository hook for the specified reference.</returns>
         public static Uri RepositoryHookById(int repositoryId, int hookId)
         {
             return "repositories/{0}/hooks/{1}".FormatUri(repositoryId, hookId);
@@ -810,7 +812,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="hookId">The identifier of the repository hook</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that can ping a specified repository hook</returns>
         public static Uri RepositoryHookPing(int repositoryId, int hookId)
         {
             return "repositories/{0}/hooks/{1}/pings".FormatUri(repositoryId, hookId);
@@ -820,7 +822,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that lists the repository hooks for the specified reference.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that lists the repository hooks for the specified reference.</returns>
         public static Uri RepositoryHooks(int repositoryId)
         {
             return "repositories/{0}/hooks".FormatUri(repositoryId);
@@ -831,7 +833,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="hookId">The identifier of the repository hook</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that can tests a specified repository hook</returns>
         public static Uri RepositoryHookTest(int repositoryId, int hookId)
         {
             return "repositories/{0}/hooks/{1}/tests".FormatUri(repositoryId, hookId);
@@ -841,14 +843,14 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for repository languages.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for repository languages.</returns>
         public static Uri RepositoryLanguages(int repositoryId)
         {
             return "repositories/{0}/languages".FormatUri(repositoryId);
         }
 
         /// <summary>
-        /// Creates the relative  for getting the page metadata for a given repository
+        /// Returns the <see cref="Uri"/> for getting the page metadata for a given repository
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <returns>The <see cref="Uri"/> for getting the page metadata for a given repository</returns>
@@ -858,7 +860,7 @@ namespace OctokitUrlMethodsGenerator
         }
 
         /// <summary>
-        /// Creates the relative  for getting all build metadata for a given repository
+        /// Returns the <see cref="Uri"/> for getting all build metadata for a given repository
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <returns>The <see cref="Uri"/> for getting all build metadata for a given repository</returns>
@@ -868,7 +870,7 @@ namespace OctokitUrlMethodsGenerator
         }
 
         /// <summary>
-        /// Creates the relative  for getting the build metadata for the last build for a given repository
+        /// Returns the <see cref="Uri"/> for getting the build metadata for the last build for a given repository
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <returns>The <see cref="Uri"/> for getting the build metadata for the last build for a given repository</returns>
@@ -878,7 +880,7 @@ namespace OctokitUrlMethodsGenerator
         }
 
         /// <summary>
-        /// Creates the relative  for getting the README of the specified repository
+        /// Returns the <see cref="Uri"/> for getting the README of the specified repository
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <returns>The <see cref="Uri"/> for getting the README of the specified repository</returns>
@@ -891,7 +893,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for repository tags.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for repository tags.</returns>
         public static Uri RepositoryTags(int repositoryId)
         {
             return "repositories/{0}/tags".FormatUri(repositoryId);
@@ -901,7 +903,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for repository teams.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for repository teams.</returns>
         public static Uri RepositoryTeams(int repositoryId)
         {
             return "repositories/{0}/teams".FormatUri(repositoryId);
@@ -921,7 +923,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that shows whether the repo is starred by the current user.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that shows whether the repo is starred by the current user.</returns>
         public static Uri Starred(int repositoryId)
         {
             return "user/starred/{0}/{1}".FormatUri(repositoryId);
@@ -932,7 +934,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The tag reference (SHA)</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified tag.</returns>
         public static Uri Tag(int repositoryId, string reference)
         {
             return "repositories/{0}/git/tags/{1}".FormatUri(repositoryId, reference);
@@ -942,7 +944,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> for the specified tree.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified tree.</returns>
         public static Uri Tree(int repositoryId)
         {
             return "repositories/{0}/git/trees".FormatUri(repositoryId);
@@ -953,7 +955,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The tree reference (SHA)</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified tree.</returns>
         public static Uri Tree(int repositoryId, string reference)
         {
             return "repositories/{0}/git/trees/{1}".FormatUri(repositoryId, reference);
@@ -964,7 +966,7 @@ namespace OctokitUrlMethodsGenerator
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
         /// <param name="reference">The tree reference (SHA)</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> for the specified tree.</returns>
         public static Uri TreeRecursive(int repositoryId, string reference)
         {
             return "repositories/{0}/git/trees/{1}?recursive=1".FormatUri(repositoryId, reference);
@@ -974,7 +976,7 @@ namespace OctokitUrlMethodsGenerator
         /// Returns the <see cref="Uri"/> that shows whether the repo is starred by the current user.
         /// </summary>
         /// <param name="repositoryId">The ID of the repository</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Uri"/> that shows whether the repo is starred by the current user.</returns>
         public static Uri Watched(int repositoryId)
         {
             return "repositories/{0}/subscription".FormatUri(repositoryId);
@@ -989,5 +991,7 @@ namespace OctokitUrlMethodsGenerator
         {
             return "repositories/{0}/subscribers".FormatUri(repositoryId);
         }
+
+
     }
 }
