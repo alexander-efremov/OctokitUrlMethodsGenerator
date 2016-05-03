@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -51,7 +50,6 @@ namespace OctokitUrlMethodsGenerator
 
             var builder = new StringBuilder();
             for (var index = 0; index < methodInfos.Length; index++)
-                //for (int index = 0; index < 10; index++)
             {
                 var info = methodInfos[index];
                 Console.WriteLine(index + 1);
@@ -59,8 +57,6 @@ namespace OctokitUrlMethodsGenerator
                 try
                 {
                     var element = DocsService.GetXmlFromMember(info);
-
-                    var n = info.Name;
 
                     builder.AppendLine("/// <summary>");
                     var summary = PrepareSummary(element.GetValue("summary"));
@@ -134,8 +130,8 @@ namespace OctokitUrlMethodsGenerator
                     }
                     else if (formattableString.Contains($"public static Uri RepoCompare(int {idParameterName}, string @base, string head)"))
                     {
-                        methodBody = methodBody.Replace($@"Ensure.ArgumentNotNullOrEmptyString(owner, ""owner"");", string.Empty);
-                        methodBody = methodBody.Replace($@"Ensure.ArgumentNotNullOrEmptyString(name, ""name"");", string.Empty);
+                        methodBody = methodBody.Replace(@"Ensure.ArgumentNotNullOrEmptyString(owner, ""owner"");", string.Empty);
+                        methodBody = methodBody.Replace(@"Ensure.ArgumentNotNullOrEmptyString(name, ""name"");", string.Empty);
                     }
 
                     // decrease string format args by one
@@ -160,15 +156,14 @@ namespace OctokitUrlMethodsGenerator
             File.WriteAllText(combine, builder.ToString());
         }
 
-
-        public static string FirstCharToUpper(string input)
+        private static string FirstCharToUpper(string input)
         {
-            if (String.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input))
                 throw new ArgumentException("ARGH!");
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
 
-        private string PrepareReturns(XmlElement element, string summary)
+        private static string PrepareReturns(XmlNode element, string summary)
         {
             var trim = element["returns"].InnerText.Trim();
             trim = trim.Replace("The  ", @"The <see cref=""Uri""/> ");
