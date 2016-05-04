@@ -24,8 +24,20 @@ namespace OctokitUrlMethodsGenerator
                 $"Firs url: {firstUrl + Environment.NewLine}Second url {secondUrl}");
         }
 
+        private object[] GetLastParameters(string methodName)
+        {
+            switch (methodName)
+            {
+                case "IssueLock":
+                    return new object[] { 1285 };
+                case "Issue":
+                    return new object[] { 1 };
+            }
+            return new object[0];
+        }
+
         [TestCase("Issue")]
-        [TestCase("Issue1")]
+        [TestCase("IssueLock")]
         public async Task Test(string methodName)
         {
             const int repositoryId = 7528679;
@@ -33,22 +45,22 @@ namespace OctokitUrlMethodsGenerator
             const string name = "octokit.net";
 
             var methodInfo = typeof(ApiUrls).GetMethods(BindingFlags.Public | BindingFlags.Static)
-                .Where(m => m.Name == methodName)
+                .Where(m => m.Name == methodName && m.GetParameters().Length >= 2)
                 .OrderByDescending(m => m.GetParameters().Length);
             var firstMethod = methodInfo.First(info => info.GetParameters().Length >= 2 && info.GetParameters()[0].ParameterType
                                                        == typeof(string) && info.GetParameters()[1].ParameterType == typeof(string));
-            
-            var firstUrl = (Uri)firstMethod.Invoke(null, new object[] { owner, name, 1 });
-            
-            var secondUrl = (Uri)methodInfo.First(info =>
+
+            var secondName = methodInfo.First(info =>
             {
                 var length = firstMethod.GetParameters().Length;
                 Console.WriteLine(length);
                 var parameterInfos = info.GetParameters();
                 return parameterInfos.Length == length - 1
                        && parameterInfos[0].ParameterType == typeof(int) && parameterInfos[1].ParameterType != typeof(string);
-            })
-                .Invoke(null, new object[] { repositoryId, 1 });
+            });
+
+            var firstUrl = (Uri)firstMethod.Invoke(null, new object[] { owner, name }.Union(GetLastParameters(methodName)).ToArray());
+            var secondUrl = (Uri)secondName.Invoke(null, new object[] { repositoryId }.Union(GetLastParameters(methodName)).ToArray());
             await TestEqualityInternal(firstUrl, secondUrl);
         }
 
