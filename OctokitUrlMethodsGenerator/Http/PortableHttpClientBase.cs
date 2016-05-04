@@ -49,6 +49,7 @@ namespace OctokitUrlMethodsGenerator.Http
         #region Methods
 
         protected abstract HttpWebRequest CreateRequest(Uri uri);
+        protected abstract string PrepareUrl(string uri);
 
         private static string EncodeParameters(IDictionary<string, string> parameters, bool singleParamAsValue)
         {
@@ -70,11 +71,12 @@ namespace OctokitUrlMethodsGenerator.Http
             CancellationToken cancellationToken)
         {
             var dictionary = data as IDictionary<string, string>;
+            var prepareUrl = PrepareUrl(url);
             Uri uri;
             if (method == HttpMethod.Get || method == HttpMethod.Delete)
-                uri = dictionary == null ? new Uri(url) : new Uri(url + "?" + EncodeParameters(dictionary, false));
+                uri = dictionary == null ? new Uri(prepareUrl) : new Uri(prepareUrl + "?" + EncodeParameters(dictionary, false));
             else
-                uri = new Uri(url);
+                uri = new Uri(prepareUrl);
 
             var request = CreateRequest(uri);
             request.Method = method.ToString();
@@ -129,7 +131,7 @@ namespace OctokitUrlMethodsGenerator.Http
 
         #region Implementation of interfaces
         
-        public async Task<string> GetAsync(Uri uri, HttpMethod method, object data = null,
+        public async Task<string> GetAsync(Uri uri, HttpMethod method = HttpMethod.Get, object data = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var webResponse = await InvokeAsync(uri.OriginalString, method, data, cancellationToken).ConfigureAwait(false))
@@ -147,21 +149,29 @@ namespace OctokitUrlMethodsGenerator.Http
     {
         private readonly string AppName = "octokit";
 
-        private string GetAbsoluteUrl(Uri relativeUri)
+        private string GetAbsoluteUrl(string relativeUri)
         {
             var apiUrl = "https://api.github.com/";
-            return new Uri(new Uri(apiUrl), relativeUri).OriginalString;
+            var uri = new Uri(new Uri(apiUrl), relativeUri);
+            return uri.OriginalString;
         }
 
         #region Overrides of PortableHttpClientBase
 
         protected override HttpWebRequest CreateRequest(Uri uri)
         {
-            var httpWebRequest = WebRequest.CreateHttp(GetAbsoluteUrl(uri));
+            var httpWebRequest = WebRequest.CreateHttp(uri);
             httpWebRequest.Timeout = 30000;
             httpWebRequest.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             httpWebRequest.UserAgent = AppName;
             return httpWebRequest;
+        }
+
+        
+
+        protected override string PrepareUrl(string uri)
+        {
+            return GetAbsoluteUrl(uri);
         }
 
         #endregion

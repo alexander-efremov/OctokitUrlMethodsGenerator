@@ -14,21 +14,42 @@ namespace OctokitUrlMethodsGenerator
     [TestFixture]
     public class TestJsonResponseEquality
     {
-        [TestCase("octokit", "octokit.net", 7528679)]
-        public async Task Test(string owner, string name, int repositoryId)
+        private readonly OctokitHttpClient _httpClient = new OctokitHttpClient();
+
+        private async Task TestEqualityInternal(Uri firstUrl, Uri secondUrl)
         {
-            var client = new OctokitHttpClient();
+            var firstRespond = await _httpClient.GetAsync(firstUrl);
+            var secondRespond = await _httpClient.GetAsync(secondUrl);
+            Assert.AreEqual(firstRespond, secondRespond,
+                $"Firs url: {firstUrl + Environment.NewLine}Second url {secondUrl}");
+        }
 
-            var firstUrl = ApiUrls.Issue(owner, name, 1);
-            var secondUrl = ApiUrls.Issue(repositoryId, 1);
+        [TestCase("Issue")]
+        [TestCase("Issue1")]
+        public async Task Test(string methodName)
+        {
+            const int repositoryId = 7528679;
+            const string owner = "octokit";
+            const string name = "octokit.net";
 
-            var firstRespond = await client.GetAsync(firstUrl, HttpMethod.Get);
-            var secondRespond = await client.GetAsync(secondUrl, HttpMethod.Get);
-
-            Assert.AreEqual(firstRespond, secondRespond, "Firs url: " + firstUrl + Environment.NewLine + "Second url" + secondUrl);
-
-            Console.WriteLine(firstUrl);
-            Console.WriteLine(secondUrl);
+            var methodInfo = typeof(ApiUrls).GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .Where(m => m.Name == methodName)
+                .OrderByDescending(m => m.GetParameters().Length);
+            var firstMethod = methodInfo.First(info => info.GetParameters().Length >= 2 && info.GetParameters()[0].ParameterType
+                                                       == typeof(string) && info.GetParameters()[1].ParameterType == typeof(string));
+            
+            var firstUrl = (Uri)firstMethod.Invoke(null, new object[] { owner, name, 1 });
+            
+            var secondUrl = (Uri)methodInfo.First(info =>
+            {
+                var length = firstMethod.GetParameters().Length;
+                Console.WriteLine(length);
+                var parameterInfos = info.GetParameters();
+                return parameterInfos.Length == length - 1
+                       && parameterInfos[0].ParameterType == typeof(int) && parameterInfos[1].ParameterType != typeof(string);
+            })
+                .Invoke(null, new object[] { repositoryId, 1 });
+            await TestEqualityInternal(firstUrl, secondUrl);
         }
 
         // [TestCase(@"C:\Users\efremov_aa\Source\Repos\OctokitUrlMethodsGenerator\octokit\Octokit\Helpers\ApiUrls.cs", @"C:\Users\efremov_aa\Source\Repos\OctokitUrlMethodsGenerator\OctokitUrlMethodsGenerator\")]
