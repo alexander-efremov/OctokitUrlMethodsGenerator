@@ -40,7 +40,7 @@ namespace OctokitUrlMethodsGenerator
         public void MainTest(string pathToApiUrls, string outputPath)
         {
             const string idParameterName = "repositoryId";
-            var syntaxTree = GetST(pathToApiUrls);
+            var syntaxTree = GetSt(pathToApiUrls);
             var methodInfos = typeof(ApiUrls).GetMethods(BindingFlags.Public | BindingFlags.Static);
             methodInfos = methodInfos.Where(info => info.GetParameters().Length >= 2).ToArray();
             methodInfos = methodInfos.Where(info => GetParamName(info, 0) == "owner" && GetParamName(info, 1) == "name").ToArray();
@@ -227,7 +227,7 @@ namespace OctokitUrlMethodsGenerator
             return methodInfos;
         }
 
-        private static SyntaxTree GetST(string filename)
+        private static SyntaxTree GetSt(string filename)
         {
             using (var stream = File.OpenRead(filename))
             {
