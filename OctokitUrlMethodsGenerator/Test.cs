@@ -198,7 +198,7 @@ namespace OctokitUrlMethodsGenerator
             return r;
         }
 
-        private string FormatMethodBody(string methodBody)
+        private static string FormatMethodBody(string methodBody)
         {
             var lines = methodBody.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var r = string.Empty;
