@@ -159,7 +159,7 @@ namespace OctokitUrlMethodsGenerator
         private static string FirstCharToUpper(string input)
         {
             if (string.IsNullOrEmpty(input))
-                throw new ArgumentException("ARGH!");
+                throw new ArgumentException(nameof(input));
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
 
