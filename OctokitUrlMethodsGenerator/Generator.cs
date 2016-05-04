@@ -5,45 +5,22 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using DocsByReflection;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 using NUnit.Framework;
 using Octokit;
 
 namespace OctokitUrlMethodsGenerator
 {
-    public static class XmlElementExt
-    {
-        public static string GetValue(this XmlElement element, string path)
-        {
-            var xmlElement = element[path];
-            return xmlElement != null ? xmlElement.InnerText.Trim() : string.Empty;
-        }
-    }
-
     [TestFixture]
-    public class Test
+    public class Generator
     {
-        private static string GetParamName(MethodInfo method, int index)
-        {
-            var retVal = string.Empty;
-
-            if (method != null && method.GetParameters().Length > index)
-                retVal = method.GetParameters()[index].Name;
-
-            return retVal;
-        }
-
         [TestCase(@"C:\Users\efremov_aa\Source\Repos\OctokitUrlMethodsGenerator\octokit\Octokit\Helpers\ApiUrls.cs", @"C:\Users\efremov_aa\Source\Repos\OctokitUrlMethodsGenerator\OctokitUrlMethodsGenerator\")]
         public void MainTest(string pathToApiUrls, string outputPath)
         {
             const string idParameterName = "repositoryId";
-            var syntaxTree = GetSt(pathToApiUrls);
+            var syntaxTree = ExtensionMethods.GetSyntaxTree(pathToApiUrls);
             var methodInfos = typeof(ApiUrls).GetMethods(BindingFlags.Public | BindingFlags.Static);
             methodInfos = methodInfos.Where(info => info.GetParameters().Length >= 2).ToArray();
-            methodInfos = methodInfos.Where(info => GetParamName(info, 0) == "owner" && GetParamName(info, 1) == "name").ToArray();
+            methodInfos = methodInfos.Where(info => info.GetParamName(0) == "owner" && info.GetParamName(1) == "name").ToArray();
             Console.WriteLine(methodInfos.Length);
 
             methodInfos = PrintOut(methodInfos);
@@ -60,7 +37,7 @@ namespace OctokitUrlMethodsGenerator
 
                     builder.AppendLine("/// <summary>");
                     var summary = PrepareSummary(element.GetValue("summary"));
-                    
+
                     builder.AppendLine("/// " + summary);
                     builder.AppendLine("/// </summary>");
 
@@ -93,7 +70,7 @@ namespace OctokitUrlMethodsGenerator
                         throw;
                     }
 
-                    var methodDeclarationSyntax = GetMethodDeclarationSyntax(syntaxTree, info.Name, info.GetParameters().Length);
+                    var methodDeclarationSyntax = ExtensionMethods.GetMethodDeclarationSyntax(syntaxTree, info.Name, info.GetParameters().Length);
                     var formattableString = $"public static Uri {info.Name}(int {idParameterName}, ";
 
                     foreach (var parameter in methodDeclarationSyntax.ParameterList.Parameters)
@@ -181,7 +158,7 @@ namespace OctokitUrlMethodsGenerator
             return format;
         }
 
-        private string PrepareSummary(string getValue)
+        private static string PrepareSummary(string getValue)
         {
             var lines = getValue.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
             var r = string.Empty;
@@ -225,30 +202,6 @@ namespace OctokitUrlMethodsGenerator
                 Console.WriteLine($"{index + 1}) {name}");
             }
             return methodInfos;
-        }
-
-        private static SyntaxTree GetSt(string filename)
-        {
-            using (var stream = File.OpenRead(filename))
-            {
-                var syntaxTree = CSharpSyntaxTree.ParseText(SourceText.From(stream), path: filename);
-                return syntaxTree;
-            }
-        }
-
-        private static MethodDeclarationSyntax GetMethodDeclarationSyntax(SyntaxTree syntaxTree, string methodName, int paramNumber)
-        {
-            var members = syntaxTree.GetRoot().DescendantNodes().OfType<MemberDeclarationSyntax>();
-            foreach (var member in members)
-            {
-                var method = member as MethodDeclarationSyntax;
-                if (method != null && method.Identifier.ToString() == methodName &&
-                    method.ParameterList.Parameters.Count == paramNumber)
-                {
-                    return method;
-                }
-            }
-            return null;
         }
     }
 }
