@@ -21,6 +21,10 @@ namespace OctokitUrlMethodsGenerator
             var methodInfos = typeof(ApiUrls).GetMethods(BindingFlags.Public | BindingFlags.Static);
             methodInfos = methodInfos.Where(info => info.GetParameters().Length >= 2).ToArray();
             methodInfos = methodInfos.Where(info => info.GetParamName(0) == "owner" && info.GetParamName(1) == "name").ToArray();
+            // special cases
+            methodInfos = methodInfos.Where(info => info.Name != "NetworkEvents").ToArray();
+            methodInfos = methodInfos.Where(info => info.Name != "Starred").ToArray();
+
             Console.WriteLine(methodInfos.Length);
 
             methodInfos = PrintOut(methodInfos);
@@ -83,7 +87,7 @@ namespace OctokitUrlMethodsGenerator
 
                     formattableString = formattableString.TrimEnd(',', ' ') + ")";
                     builder.AppendLine(formattableString);
-
+                    Console.WriteLine(methodDeclarationSyntax.Body.ToString());
                     var methodBody = FormatMethodBody(methodDeclarationSyntax.Body.ToString());
                     methodBody = methodBody.Replace("repos/{0}/{1}", "repositories/{0}");
                     methodBody = methodBody.Replace(".FormatUri(owner, name", $".FormatUri({idParameterName}");

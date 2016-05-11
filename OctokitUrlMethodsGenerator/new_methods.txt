@@ -184,6 +184,16 @@ public static Uri DeploymentStatuses(int repositoryId, int deploymentId)
 }
 
 /// <summary>
+/// Returns the <see cref="Uri"/> that returns the issue/pull request event and issue info for the specified repository.
+/// </summary>
+/// <param name="repositoryId">The ID of the repository</param>
+/// <returns>The <see cref="Uri"/> that returns the issue/pull request event and issue info for the specified repository.</returns>
+public static Uri Events(int repositoryId)
+{
+    return "repositories/{0}/events".FormatUri(repositoryId);
+}
+
+/// <summary>
 /// Returns the <see cref="Uri"/> for the specified issue.
 /// </summary>
 /// <param name="repositoryId">The ID of the repository</param>
@@ -306,11 +316,11 @@ public static Uri IssuesEvents(int repositoryId)
 /// Returns the <see cref="Uri"/> that returns the specified label.
 /// </summary>
 /// <param name="repositoryId">The ID of the repository</param>
-/// <param name="milestoneNumber">The milestone number</param>
+/// <param name="labelName">The name of label</param>
 /// <returns>The <see cref="Uri"/> that returns the specified label.</returns>
-public static Uri Label(int repositoryId, string milestoneNumber)
+public static Uri Label(int repositoryId, string labelName)
 {
-    return "repositories/{0}/labels/{1}".FormatUri(repositoryId, milestoneNumber);
+    return "repositories/{0}/labels/{1}".FormatUri(repositoryId, labelName);
 }
 
 /// <summary>
@@ -374,16 +384,6 @@ public static Uri MilestoneLabels(int repositoryId, int number)
 public static Uri Milestones(int repositoryId)
 {
     return "repositories/{0}/milestones".FormatUri(repositoryId);
-}
-
-/// <summary>
-/// Returns the <see cref="Uri"/> for the network of repositories.
-/// </summary>
-/// <param name="repositoryId">The ID of the repository</param>
-/// <returns>The <see cref="Uri"/> for the network of repositories.</returns>
-public static Uri NetworkEvents(int repositoryId)
-{
-    return "networks/{0}/{1}/events".FormatUri(repositoryId);
 }
 
 /// <summary>
@@ -814,13 +814,53 @@ public static Uri Stargazers(int repositoryId)
 }
 
 /// <summary>
-/// Returns the <see cref="Uri"/> that shows whether the repo is starred by the current user.
+/// Returns the <see cref="Uri"/> for the code frequency for the given repository
 /// </summary>
 /// <param name="repositoryId">The ID of the repository</param>
-/// <returns>The <see cref="Uri"/> that shows whether the repo is starred by the current user.</returns>
-public static Uri Starred(int repositoryId)
+/// <returns>The <see cref="Uri"/> for the code frequency for the given repository</returns>
+public static Uri StatsCodeFrequency(int repositoryId)
 {
-    return "user/starred/{0}/{1}".FormatUri(repositoryId);
+    return "repositories/{0}/stats/code_frequency".FormatUri(repositoryId);
+}
+
+/// <summary>
+/// Returns the <see cref="Uri"/> for the commit activity for the given repository
+/// </summary>
+/// <param name="repositoryId">The ID of the repository</param>
+/// <returns>The <see cref="Uri"/> for the commit activity for the given repository</returns>
+public static Uri StatsCommitActivity(int repositoryId)
+{
+    return "repositories/{0}/stats/commit_activity".FormatUri(repositoryId);
+}
+
+/// <summary>
+/// Returns the <see cref="Uri"/> for the contributors for the given repository
+/// </summary>
+/// <param name="repositoryId">The ID of the repository</param>
+/// <returns>The <see cref="Uri"/> for the contributors for the given repository</returns>
+public static Uri StatsContributors(int repositoryId)
+{
+    return "repositories/{0}/stats/contributors".FormatUri(repositoryId);
+}
+
+/// <summary>
+/// Returns the <see cref="Uri"/> for the participation for the given repository
+/// </summary>
+/// <param name="repositoryId">The ID of the repository</param>
+/// <returns>The <see cref="Uri"/> for the participation for the given repository</returns>
+public static Uri StatsParticipation(int repositoryId)
+{
+    return "repositories/{0}/stats/participation".FormatUri(repositoryId);
+}
+
+/// <summary>
+/// Returns the <see cref="Uri"/> for the punch card for the given repository
+/// </summary>
+/// <param name="repositoryId">The ID of the repository</param>
+/// <returns>The <see cref="Uri"/> for the punch card for the given repository</returns>
+public static Uri StatsPunchCard(int repositoryId)
+{
+    return "repositories/{0}/stats/punch_card".FormatUri(repositoryId);
 }
 
 /// <summary>
